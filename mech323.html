@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MECH 323 — Gearbox shaft design & fatigue analysis | Matthew Broglio</title>
+<meta name="description" content="Engineering case study: fatigue analysis of a three-shaft gearbox, from force and torque calculations to DE-Gerber safety factor verification.">
+<meta name="author" content="Matthew Broglio">
+<meta property="og:title" content="MECH 323 — Gearbox shaft design & fatigue analysis | Matthew Broglio">
+<meta property="og:description" content="Engineering case study: fatigue analysis of a three-shaft gearbox, from force and torque calculations to DE-Gerber safety factor verification.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2314528c'/><text x='16' y='22' font-family='Inter,sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'>MB</text></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">MB</span>
+        <span>Matthew Broglio <span class="brand-sub">Mechanical &amp; Materials Engineering</span></span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="projects.html" class="is-active">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="engineer.html">About My Engineering</a></li>
+            <li><a href="goals.html">Goals</a></li>
+            <li><a href="contact.html" class="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span></button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html" class="is-active">Projects</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="engineer.html">About My Engineering</a></li>
+          <li><a href="goals.html">Goals</a></li>
+      </ul>
+      <a class="btn btn-primary" href="contact.html">Contact me</a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="kicker">Project 02 &middot; MECH 323 Machine Design &middot; 2025</p>
+        <div class="hero-grid" style="align-items:center">
+          <div>
+            <h1>Gearbox shaft design &amp; fatigue analysis</h1>
+            <p class="lede" style="margin-bottom:20px">Verifying that every critical location on a three-shaft gearbox survives five years of continuous cyclic loading.</p>
+            <ul class="tags" style="margin-bottom:22px">
+              <li class="tag tag--blue">Machine design</li><li class="tag tag--blue">Fatigue analysis</li>
+              <li class="tag tag--blue">Engineering calculations</li><li class="tag tag--blue">DE-Gerber</li>
+            </ul>
+            <p style="font-size:.92rem;color:var(--muted);max-width:52ch">Team design project &mdash; Team 12, Phase 3. My individual contribution is set out <a href="#contribution">further down the page</a>.</p>
+          </div>
+          <figure class="fig fig--hero">
+            <div class="fig-img">
+              <img src="assets/img/mech-cad-iso.webp" alt="Isometric CAD assembly of the gearbox showing input, intermediate and output shafts mounted through a plate with meshing gears." width="697" height="434">
+            </div>
+            <figcaption>
+              <span class="fig-no">Fig. 01</span>
+              <span class="fig-title">Gearbox assembly</span>
+              <span class="fig-note">The design under analysis: input shaft on the left, output and shift mechanism on the right.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid grid-2" style="gap:clamp(32px,5vw,72px);align-items:start">
+          <div class="reveal">
+            <h2>The challenge</h2>
+            <p>The objective of this phase was to evaluate the gearbox shaft design under cyclic loading and confirm that each critical location maintained an acceptable fatigue safety factor.</p>
+            <p>The gearbox was assumed to run continuously for a five-year endurance race at a constant operating point, so every shaft feature had to survive high-cycle loading. Shaft length was capped at 60 mm by the gearbox width and shaft diameter was capped by the smallest pinion, which left very little room to solve a problem by simply adding material.</p>
+          </div>
+          <div class="reveal">
+            <div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+              <div><span class="kv-value">AISI 4130</span><span class="kv-label">Q&amp;T at 425&nbsp;&deg;C</span></div>
+              <div><span class="kv-value">1280 MPa</span><span class="kv-label">Ultimate tensile strength</span></div>
+              <div><span class="kv-value">3 shafts</span><span class="kv-label">Input, intermediate, output</span></div>
+              <div><span class="kv-value">19 points</span><span class="kv-label">Critical locations checked</span></div>
+            </div>
+            <div class="callout">
+              <h3>The requirement</h3>
+              <p>A fatigue safety factor above 1.0 at every keyway, shoulder, flange and retaining ring groove on all three shafts. Anything below that sends the design back for changes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>From loading to optimization</h2>
+          <p>The analysis chain &mdash; each step depends entirely on the one before it.</p>
+        </div>
+        <ol class="flow flow--dark reveal">
+          <li>Loading</li><li>Stress</li><li>Fatigue</li><li>Safety</li><li>Optimization</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Analysis process</h2>
+        </div>
+        <div class="grid grid-4 reveal">
+          <article class="card card--hover">
+            <span class="card-index">01</span>
+            <h3>Force &amp; torque analysis</h3>
+            <p>Calculate external forces, reactions and torque on the gearbox shafts.</p>
+          </article>
+          <article class="card card--hover">
+            <span class="card-index">02</span>
+            <h3>Critical locations</h3>
+            <p>Evaluate keyways, shoulders, flanges and retaining ring grooves where stress concentrations occur.</p>
+          </article>
+          <article class="card card--hover">
+            <span class="card-index">03</span>
+            <h3>Fatigue analysis</h3>
+            <p>Determine fatigue behaviour under cyclic loading using material properties and corrected endurance limits.</p>
+          </article>
+          <article class="card card--hover">
+            <span class="card-index">04</span>
+            <h3>DE-Gerber verification</h3>
+            <p>Calculate the factor of safety at critical shaft locations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="visuals">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Working through the analysis</h2>
+          <p>A selected set of the drawings, diagrams and calculations behind the result &mdash; enough to follow the reasoning without reproducing the full report.</p>
+        </div>
+
+        <div class="grid grid-2 reveal">
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-cad-topdown.webp" alt="Top-down CAD view of the gearbox assembly showing the gear train and the shift mechanism on the output shaft." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 02</span>
+              <span class="fig-title">Gear train layout</span>
+              <span class="fig-note">A top-down view makes the two-stage gear train and the shift mechanism legible &mdash; the starting point for working out what each shaft carries.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-shafts.webp" alt="Three shaft models labelled output/shift, intermediate and input, showing their stepped diameters and grooves." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 03</span>
+              <span class="fig-title">The three shafts</span>
+              <span class="fig-note">Each gear is located by a retaining groove and either a shoulder or a flange, and coupled with a single filleted keyway. Every one of those features is a stress riser.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-geartrain-main.webp" alt="Python-generated plot of the main gear train showing pitch circles and force vectors, with printed force and torque values above." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 04</span>
+              <span class="fig-title">Force and torque calculation output</span>
+              <span class="fig-note">Gear mesh forces were computed with a static model in Python and plotted as vectors, which made it possible to re-run the whole load case whenever a gear diameter changed.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-dwg-intermediate.webp" alt="Dimensioned engineering drawing of the intermediate shaft showing diameters, keyway positions and retaining groove locations in millimetres." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 05</span>
+              <span class="fig-title">Intermediate shaft dimensions</span>
+              <span class="fig-note">The most constrained shaft: three gear sets in 60 mm, including a step down to 8 mm and a smaller 1.7 mm keyway for the smallest pinion.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <figure class="fig reveal" style="margin-top:20px">
+          <div class="fig-img fig-img--wide"><img src="assets/img/mech-features-intermediate.webp" alt="Diagram of the intermediate shaft with features colour-coded: keyways in blue, retaining ring grooves in red, flanges in green and shoulders in orange." loading="lazy"></div>
+          <figcaption>
+            <span class="fig-no">Fig. 06</span>
+            <span class="fig-title">Critical features, colour-coded</span>
+            <span class="fig-note">Keyways (blue), retaining ring grooves (red), flanges (green) and shoulders (orange). Marking the shaft up this way turned it into a finite checklist of locations to verify &mdash; nineteen across the three shafts.</span>
+          </figcaption>
+        </figure>
+
+        <div class="grid grid-2 reveal" style="margin-top:20px">
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-bmd-inter-zx.webp" alt="Free body diagram with shear force, bending moment and torque diagrams for the intermediate shaft in the z-x plane." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 07</span>
+              <span class="fig-title">Intermediate shaft &mdash; z-x plane</span>
+              <span class="fig-note">Free body, shear force, bending moment and torque diagrams. These give the moment and torque at every critical location.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/mech-bmd-inter-yx.webp" alt="Free body diagram with shear force and bending moment diagrams for the intermediate shaft in the y-x plane." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 08</span>
+              <span class="fig-title">Intermediate shaft &mdash; y-x plane</span>
+              <span class="fig-note">Because the gears have a 20&deg; pressure angle, both planes matter; the two bending moments combine into the resultant amplitude moment used in the safety factor.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <figure class="fig reveal" style="margin-top:20px">
+          <div class="fig-img fig-img--tall"><img src="assets/img/mech-handcalc-kf.webp" alt="Handwritten calculation sheet deriving notch sensitivity and fatigue stress concentration factors for the flange, shoulder and retaining ring grooves." loading="lazy"></div>
+          <figcaption>
+            <span class="fig-no">Fig. 09</span>
+            <span class="fig-title">Stress concentration factors, feature by feature</span>
+            <span class="fig-note">Notch sensitivity and geometry ratios worked through for each feature type to get a fatigue stress concentration factor: 1.50 at the flange, 1.41 at the shoulder, 1.64 / 1.56 / 1.66 at the three retaining ring grooves, and 1.30 at the keyways.</span>
+          </figcaption>
+        </figure>
+
+        <div class="btn-row reveal" style="margin-top:28px">
+          <span class="btn btn-secondary" aria-disabled="true">View full report / supporting documentation</span>
+        </div>
+        <p class="note reveal" style="margin-top:14px;display:inline-block">Link placeholder &mdash; add a PDF of the report or a shared link in <code>mech323.html</code> if you want to make the supporting documentation available. <span class="placeholder">[INSERT REPORT LINK]</span></p>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Key results</h2>
+        </div>
+        <div class="results reveal">
+          <div>
+            <span class="result-value"><span data-count="328.21" data-decimals="2">328.21</span> MPa</span>
+            <span class="result-label">Corrected endurance limit for the input and output shafts</span>
+          </div>
+          <div>
+            <span class="result-value"><span data-count="336.14" data-decimals="2">336.14</span> MPa</span>
+            <span class="result-label">Corrected endurance limit for the intermediate shaft</span>
+          </div>
+          <div>
+            <span class="result-value"><span data-count="510.45" data-decimals="2">510.45</span> N</span>
+            <span class="result-label">Maximum force on the intermediate shaft</span>
+          </div>
+          <div>
+            <span class="result-value"><span data-count="1.403" data-decimals="3">1.403</span></span>
+            <span class="result-label">Lowest fatigue safety factor across all critical locations</span>
+          </div>
+        </div>
+
+        <div class="grid grid-2 reveal" style="gap:clamp(28px,4vw,56px);margin-top:clamp(32px,4vw,52px);align-items:center">
+          <p class="statement">All critical locations maintained a safety factor above 1.0.</p>
+          <div>
+            <p>The analysis confirmed that the shaft design met the fatigue safety requirements. At the same time, the analysis identified opportunities for optimization, particularly where the input shaft exhibited significantly higher safety factors than required.</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top:clamp(32px,4vw,48px)">
+          <h3 style="font-size:1.15rem">Minimum safety factor by shaft</h3>
+          <div class="table-wrap" style="margin-bottom:28px">
+            <table class="data">
+              <thead>
+                <tr><th scope="col">Shaft</th><th scope="col">Governing location</th><th scope="col">Minimum factor of safety</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Input</td><td>Right flange</td><td>8.06</td></tr>
+                <tr class="is-low"><td>Intermediate</td><td>Right retaining ring groove 1</td><td>1.403</td></tr>
+                <tr><td>Output</td><td>Left retaining ring groove 2</td><td>3.331</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size:1.15rem">Intermediate shaft &mdash; all critical points</h3>
+          <p style="font-size:.95rem">The governing shaft, shown in full as a representative example of the calculation set. Midrange torque and resultant amplitude moment feed the DE-Gerber criterion at each location.</p>
+          <div class="table-wrap">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th scope="col">Critical point</th>
+                  <th scope="col">Midrange torque T<sub>m</sub> (N&middot;m)</th>
+                  <th scope="col">Amplitude moment M<sub>a</sub> (N&middot;m)</th>
+                  <th scope="col">Factor of safety</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Left retaining ring groove 1</td><td>0</td><td>3.682</td><td>1.493</td></tr>
+                <tr class="is-low"><td>Right retaining ring groove 1</td><td>0</td><td>3.945</td><td>1.403</td></tr>
+                <tr><td>Shoulder</td><td>3.97</td><td>4.915</td><td>2.441</td></tr>
+                <tr><td>Left retaining ring groove 2</td><td>3.97</td><td>4.743</td><td>2.517</td></tr>
+                <tr><td>Right retaining ring groove 2</td><td>3.97</td><td>4.658</td><td>2.361</td></tr>
+                <tr><td>Left flange</td><td>3.97</td><td>3.744</td><td>5.569</td></tr>
+                <tr><td>Right flange</td><td>3.97</td><td>3.664</td><td>5.678</td></tr>
+                <tr><td>Left retaining ring groove 3</td><td>0</td><td>1.771</td><td>6.979</td></tr>
+                <tr><td>Right retaining ring groove 3</td><td>0</td><td>1.518</td><td>8.142</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="wrap">
+        <div class="callout callout--dark reveal">
+          <h3>Engineering insight</h3>
+          <p style="font-size:clamp(1.02rem,1.7vw,1.18rem);color:#dbe5ee;max-width:64ch">The analysis did more than confirm that the design was safe. It identified an opportunity to reduce unnecessary material and improve efficiency without sacrificing durability.</p>
+          <p style="margin-top:14px">Safety factors on the input shaft ran from 8.06 to 13.63 &mdash; far above what the loading requires. That points directly at where the next design revision should remove material, while the intermediate shaft at 1.403 is the one location that has to be left alone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contribution">
+      <div class="wrap">
+        <div class="callout reveal">
+          <div class="contribution">
+            <p class="c-label">My contribution</p>
+            <div>
+              <p>I was primarily responsible for the engineering calculations and analytical work throughout the project. This included developing and incorporating the required equations, calculating design values, and creating the tables used to present the results.</p>
+              <p>I also contributed to the development and refinement of the CAD design by reviewing the models and providing feedback and design suggestions to the team member responsible for the CAD work. Working collaboratively, we evaluated design changes to improve the overall functionality and presentation of the gearbox.</p>
+              <p style="margin-bottom:0"><strong>I was not the primary CAD designer on this project.</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>What I learned</h2>
+        </div>
+        <div class="grid grid-3 reveal">
+          <article class="card">
+            <h3>Technical analysis</h3>
+            <p>I strengthened my ability to translate engineering theory into calculations and design verification.</p>
+          </article>
+          <article class="card">
+            <h3>Data presentation</h3>
+            <p>I learned the importance of presenting complex calculations and numerical results in a clear, organized way.</p>
+          </article>
+          <article class="card">
+            <h3>Design review</h3>
+            <p>Reviewing the CAD model and contributing design suggestions reinforced the value of collaborative design review.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark section--tight">
+      <div class="wrap">
+        <div class="grid grid-2 reveal" style="gap:24px;align-items:center">
+          <h2 style="margin:0">See the other case study</h2>
+          <div class="btn-row" style="justify-content:flex-end">
+            <a class="btn btn-on-dark" href="apsc200.html">Porous lattice mouthguard design <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <p class="footer-name">Matthew Broglio</p>
+          <p class="footer-sub">Mechanical &amp; Materials Engineering<br>Queen's University</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="footer-nav"><li><a href="index.html">Home</a></li> <li><a href="about.html">About</a></li> <li><a href="experience.html">Experience</a></li> <li><a href="projects.html">Projects</a></li> <li><a href="skills.html">Skills</a></li> <li><a href="engineer.html">About My Engineering</a></li> <li><a href="goals.html">Goals</a></li> <li><a href="contact.html">Contact</a></li></ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Matthew Broglio</span>
+        <span>Fourth-year e-portfolio &middot; MECH 460/464</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

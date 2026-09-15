@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APSC 200 — Porous lattice structures for mouthguards | Matthew Broglio</title>
+<meta name="description" content="Engineering case study: designing, simulating, prototyping and testing a porous lattice structure for an impact-absorbing sports mouthguard.">
+<meta name="author" content="Matthew Broglio">
+<meta property="og:title" content="APSC 200 — Porous lattice structures for mouthguards | Matthew Broglio">
+<meta property="og:description" content="Engineering case study: designing, simulating, prototyping and testing a porous lattice structure for an impact-absorbing sports mouthguard.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2314528c'/><text x='16' y='22' font-family='Inter,sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'>MB</text></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">MB</span>
+        <span>Matthew Broglio <span class="brand-sub">Mechanical &amp; Materials Engineering</span></span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="projects.html" class="is-active">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="engineer.html">About My Engineering</a></li>
+            <li><a href="goals.html">Goals</a></li>
+            <li><a href="contact.html" class="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span></button>
+    </div>
+  </header>
+  <div class="nav-mobile" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html" class="is-active">Projects</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="engineer.html">About My Engineering</a></li>
+          <li><a href="goals.html">Goals</a></li>
+      </ul>
+      <a class="btn btn-primary" href="contact.html">Contact me</a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="kicker">Project 01 &middot; APSC 200/293 &middot; 2024</p>
+        <div class="hero-grid" style="align-items:center">
+          <div>
+            <h1>Designing for impact</h1>
+            <p class="lede" style="margin-bottom:20px">Development of a porous lattice structure for an impact-absorbing sports mouthguard.</p>
+            <ul class="tags" style="margin-bottom:22px">
+              <li class="tag tag--blue">CAD</li><li class="tag tag--blue">FEA</li>
+              <li class="tag tag--blue">Additive manufacturing</li><li class="tag tag--blue">Prototyping</li>
+            </ul>
+            <p style="font-size:.92rem;color:var(--muted);max-width:52ch">Team design project &mdash; Section 204, Group MMEB 4. My individual contribution is set out <a href="#contribution">further down the page</a>.</p>
+          </div>
+          <figure class="fig fig--hero">
+            <div class="fig-img">
+              <img src="assets/img/apsc-pillared-lattice.webp" alt="CAD model of the selected pillared lattice: a 30 mm cube with rows of opposing triangular cut-outs forming vertical pillars on each face." width="813" height="720">
+            </div>
+            <figcaption>
+              <span class="fig-no">Fig. 01</span>
+              <span class="fig-title">Pillared lattice final design</span>
+              <span class="fig-note">The selected lattice geometry. Opposing triangular cut-outs leave vertical pillars that carry the impact load.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid grid-2" style="gap:clamp(32px,5vw,72px);align-items:start">
+          <div class="reveal">
+            <h2>The challenge</h2>
+            <p>The project focused on developing a new shock-absorbing material structure for sports mouthguards. The design needed to balance safety, shock absorption, weight, stiffness, manufacturability, cost, and sport-specific requirements.</p>
+            <p>Because the structure would be 3D printed in a single material, every gain in one area had to be paid for somewhere else: a more porous lattice is lighter but less stiff, and a geometry that performs well in simulation can still be impossible to clean up after printing.</p>
+          </div>
+          <div class="reveal">
+            <ul class="chip-list">
+              <li class="chip">Safety</li>
+              <li class="chip">Shock absorption</li>
+              <li class="chip">Weight</li>
+              <li class="chip">Stiffness</li>
+              <li class="chip">Manufacturability</li>
+              <li class="chip">Cost</li>
+            </ul>
+            <div class="callout" style="margin-top:24px">
+              <h3>Design constraints</h3>
+              <p>A single printable material, a 30 mm cube test structure, and a geometry that has to survive being scaled down to fit inside a mouthguard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="process">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>The design process</h2>
+          <p>Eight stages from problem statement to a tested prototype. The last step is the one that changed the design.</p>
+        </div>
+        <ol class="flow flow--dark reveal">
+          <li><span class="flow-step-no">01</span>Problem</li>
+          <li><span class="flow-step-no">02</span>Research</li>
+          <li><span class="flow-step-no">03</span>Concept generation</li>
+          <li><span class="flow-step-no">04</span>FEA</li>
+          <li><span class="flow-step-no">05</span>Design selection</li>
+          <li><span class="flow-step-no">06</span>Prototype</li>
+          <li><span class="flow-step-no">07</span>Test</li>
+          <li><span class="flow-step-no">08</span>Iterate</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="concepts">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Concept development</h2>
+          <p>Fifteen iterations across four lattice geometries produced four viable candidates for full evaluation.</p>
+        </div>
+
+        <div class="grid grid-4 reveal">
+          <figure class="fig">
+            <div class="fig-img fig-img--sm"><img src="assets/img/apsc-concept-triangular.webp" alt="CAD model of the triangular scaffold lattice concept." loading="lazy"></div>
+            <figcaption><span class="fig-no">Fig. 02</span><span class="fig-title">Triangular scaffold</span><span class="fig-note">Repeating cubic cells; four iterations.</span></figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img fig-img--sm"><img src="assets/img/apsc-concept-pillared.webp" alt="CAD model of the pillared lattice concept." loading="lazy"></div>
+            <figcaption><span class="fig-no">Fig. 03</span><span class="fig-title">Pillared lattice</span><span class="fig-note">Opposing triangular cut-outs; seven iterations.</span></figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img fig-img--sm"><img src="assets/img/apsc-concept-hexagonal.webp" alt="CAD model of the hexagonal crystal lattice concept." loading="lazy"></div>
+            <figcaption><span class="fig-no">Fig. 04</span><span class="fig-title">Hexagonal crystal lattice</span><span class="fig-note">Patterned hexagonal cut-outs on every face.</span></figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img fig-img--sm"><img src="assets/img/apsc-concept-circular.webp" alt="CAD model of the circular porous structure concept." loading="lazy"></div>
+            <figcaption><span class="fig-no">Fig. 05</span><span class="fig-title">Circular porous structure</span><span class="fig-note">Circular cut-outs; the least porous of the four.</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="section-head reveal" style="margin-top:clamp(40px,5vw,64px)">
+          <h3 style="font-size:clamp(1.15rem,2vw,1.4rem)">Weighted evaluation matrix</h3>
+          <p>Each concept was scored on porosity, static and dynamic deflection, maximum stress, impact force, rebound, printability, and how far it could be optimized. Categories were weighted 1&times; to 3&times; according to their influence on the design.</p>
+        </div>
+        <div class="matrix reveal">
+          <div class="matrix-item">
+            <span class="matrix-name">Triangular scaffold</span>
+            <span class="matrix-score">64<span> / 88</span></span>
+            <span class="bar"><i style="width:72.7%"></i></span>
+          </div>
+          <div class="matrix-item is-selected">
+            <span class="matrix-flag">Selected design</span>
+            <span class="matrix-name">Pillared lattice</span>
+            <span class="matrix-score">65<span> / 88</span></span>
+            <span class="bar"><i style="width:73.9%"></i></span>
+          </div>
+          <div class="matrix-item">
+            <span class="matrix-name">Hexagonal crystal</span>
+            <span class="matrix-score">62<span> / 88</span></span>
+            <span class="bar"><i style="width:70.5%"></i></span>
+          </div>
+          <div class="matrix-item">
+            <span class="matrix-name">Circular porous</span>
+            <span class="matrix-score">47<span> / 88</span></span>
+            <span class="bar"><i style="width:53.4%"></i></span>
+          </div>
+        </div>
+
+        <div class="callout reveal" style="margin-top:28px">
+          <h3>Why the pillared lattice</h3>
+          <p>The Pillared Lattice achieved the highest overall score in the weighted evaluation matrix. It provided a balance of shock absorption, stress performance, stiffness, printability, and optimization potential. Three of the four concepts scored closely, so the decision came down to the two judgement-based categories &mdash; printability and how much room the geometry left for further optimization. <strong>This was a team design decision</strong> made collectively from the evaluation matrix.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="analysis">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Engineering analysis</h2>
+          <p>Three layers of evaluation, each one narrowing the uncertainty before the next.</p>
+        </div>
+
+        <div class="grid grid-3 reveal" style="margin-bottom:clamp(32px,4vw,48px)">
+          <article class="card card--accent">
+            <h3>CAD</h3>
+            <p>SOLIDWORKS was used to develop the lattice geometry and create repeating patterns.</p>
+          </article>
+          <article class="card card--accent">
+            <h3>FEA</h3>
+            <p>FEA was used to evaluate displacement, stress, stiffness and other performance metrics before physical prototyping.</p>
+          </article>
+          <article class="card card--accent">
+            <h3>Physical testing</h3>
+            <p>The prototype was evaluated through static and dynamic testing.</p>
+          </article>
+        </div>
+
+        <div class="grid grid-2 reveal">
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/apsc-fea-displacement.webp" alt="SOLIDWORKS displacement plot of the pillared lattice under a 50 N static load, showing peak displacement at the centre of the top face." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 06</span>
+              <span class="fig-title">FEA displacement under a 50 N static load</span>
+              <span class="fig-note">Displacement is concentrated at the centre of the loaded face. Comparing this result against the applied load gave an estimate of structural stiffness, which let the geometry be adjusted before anything was printed.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/apsc-fea-stress.webp" alt="SOLIDWORKS von Mises stress plot of the pillared lattice under a 50 N static load." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 07</span>
+              <span class="fig-title">Stress distribution under the same load case</span>
+              <span class="fig-note">Used to find where stress concentrated in the lattice so that iterations could target those features rather than thickening the whole structure.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/apsc-fea-strain.webp" alt="SOLIDWORKS strain plot of the pillared lattice under a 50 N static load." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 08</span>
+              <span class="fig-title">Strain distribution</span>
+              <span class="fig-note">The third of the three simulation outputs used to compare iterations against each other on a consistent load case.</span>
+            </figcaption>
+          </figure>
+          <figure class="fig">
+            <div class="fig-img"><img src="assets/img/apsc-fea-final.webp" alt="Finite element displacement result for the structure under load, shown as a coloured contour plot across the lattice." loading="lazy"></div>
+            <figcaption>
+              <span class="fig-no">Fig. 09</span>
+              <span class="fig-title">Displacement check on the final structure</span>
+              <span class="fig-note">The last simulation before the design was sent to be printed &mdash; confirming the modelled values sat inside the target ranges for mass, porosity and stiffness.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="iteration">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Design doesn't end at the first prototype</h2>
+          <p>The printed part exposed a problem that no simulation had flagged.</p>
+        </div>
+        <div class="grid grid-2" style="gap:clamp(32px,5vw,64px);align-items:start">
+          <ol class="flow-v reveal">
+            <li>Prototype 1</li>
+            <li class="muted">Support material removal issue</li>
+            <li class="muted">Design modification</li>
+            <li>Prototype 2</li>
+            <li>Testing</li>
+          </ol>
+          <div class="reveal">
+            <p>The initial prototype revealed challenges with removing support material from the internal geometry. The design was subsequently modified by adding walls that allowed the support material to remain within the structure rather than requiring removal that could potentially damage the internal lattice.</p>
+            <p>That change traded porosity and mass for a part that could actually be manufactured and tested &mdash; and it is the reason the measured porosity and mass differ so much from the modelled values.</p>
+            <div class="grid grid-2" style="margin-top:8px">
+              <figure class="fig">
+                <div class="fig-img"><img src="assets/img/apsc-prototype-walls.webp" alt="Cross-sectional CAD view of the second prototype showing the added outer walls containing the internal lattice." loading="lazy"></div>
+                <figcaption><span class="fig-no">Fig. 10</span><span class="fig-title">Prototype iteration</span><span class="fig-note">Modified geometry developed to address support-material removal challenges.</span></figcaption>
+              </figure>
+              <figure class="fig">
+                <div class="fig-img"><img src="assets/img/apsc-dynamic-test.webp" alt="Still frame from video of the dynamic drop test, showing the printed lattice specimen inside the test cylinder against a scale." loading="lazy"></div>
+                <figcaption><span class="fig-no">Fig. 11</span><span class="fig-title">Dynamic drop test</span><span class="fig-note">Dynamic values were measured from video, which is itself a source of measurement error.</span></figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="results">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Results</h2>
+          <p>Figures reported by the team from static testing, dynamic testing, and the economic analysis.</p>
+        </div>
+        <div class="results reveal">
+          <div>
+            <span class="result-value"><span data-count="3.2" data-decimals="1">3.2</span>%</span>
+            <span class="result-label">Largest dimensional difference between the printed part and the model during static testing</span>
+          </div>
+          <div>
+            <span class="result-value">&lt;20%</span>
+            <span class="result-label">Key stiffness and deflection values were within approximately 20% of modelled values</span>
+          </div>
+          <div>
+            <span class="result-value">$14.15</span>
+            <span class="result-label">Estimated production cost per mouthguard, including support material</span>
+          </div>
+          <div>
+            <span class="result-value">$16&ndash;20</span>
+            <span class="result-label">Potential retail price range while maintaining the targeted margin</span>
+          </div>
+        </div>
+        <p class="note reveal" style="margin-top:20px">The cost figures are estimates from the team's economic analysis, and the percentage differences are comparisons between measured and modelled values rather than guaranteed performance. Dynamic results diverged much further from the model, largely because of the design change and the difficulty of measuring from video.</p>
+
+        <figure class="fig reveal" style="margin-top:clamp(32px,4vw,48px)">
+          <div class="fig-img fig-img--tall"><img src="assets/img/apsc-timeline.webp" alt="Gantt-style project timeline for the APSC 200 project showing proposal, ideation, research, SOLIDWORKS work, FEA, test reports and report writing tasks across the term." loading="lazy"></div>
+          <figcaption>
+            <span class="fig-no">Fig. 12</span>
+            <span class="fig-title">Project plan</span>
+            <span class="fig-note">The six-week schedule the team worked to. It was revised during the project as tasks took more or less time than planned &mdash; the plan itself was treated as a working document.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="contribution">
+      <div class="wrap">
+        <div class="callout reveal">
+          <div class="contribution">
+            <p class="c-label">My contribution</p>
+            <div>
+              <p>I contributed to the final design presentation, conclusions and recommendations, and the analysis of how the mouthguard could be adapted across different sports. I also contributed to the overall editing and refinement of the report.</p>
+              <p style="margin-bottom:0">This was a four-person team project. The concept generation, simulation work, economic analysis and testing were shared across the group, and the final design decision was made collectively.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>What I learned</h2>
+        </div>
+        <div class="grid grid-3 reveal">
+          <article class="card">
+            <h3>Technical</h3>
+            <p>I developed experience using CAD and FEA to evaluate a design before committing to physical prototyping.</p>
+          </article>
+          <article class="card">
+            <h3>Design</h3>
+            <p>I learned that the strongest theoretical design is not necessarily the strongest final design. Manufacturability, testing, cost, and usability can fundamentally influence engineering decisions.</p>
+          </article>
+          <article class="card">
+            <h3>Reflection</h3>
+            <p>The differences between modelled and dynamic test results reinforced the importance of considering the testing methodology as part of the engineering design process.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark section--tight">
+      <div class="wrap">
+        <div class="grid grid-2 reveal" style="gap:24px;align-items:center">
+          <h2 style="margin:0">Next: verifying a design with calculations</h2>
+          <div class="btn-row" style="justify-content:flex-end">
+            <a class="btn btn-on-dark" href="mech323.html">Gearbox shaft fatigue analysis <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <p class="footer-name">Matthew Broglio</p>
+          <p class="footer-sub">Mechanical &amp; Materials Engineering<br>Queen's University</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="footer-nav"><li><a href="index.html">Home</a></li> <li><a href="about.html">About</a></li> <li><a href="experience.html">Experience</a></li> <li><a href="projects.html">Projects</a></li> <li><a href="skills.html">Skills</a></li> <li><a href="engineer.html">About My Engineering</a></li> <li><a href="goals.html">Goals</a></li> <li><a href="contact.html">Contact</a></li></ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Matthew Broglio</span>
+        <span>Fourth-year e-portfolio &middot; MECH 460/464</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
