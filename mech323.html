@@ -67,7 +67,7 @@
               <li class="tag tag--blue">Machine design</li><li class="tag tag--blue">Fatigue analysis</li>
               <li class="tag tag--blue">Engineering calculations</li><li class="tag tag--blue">DE-Gerber</li>
             </ul>
-            <p style="font-size:.92rem;color:var(--muted);max-width:52ch">Team design project &mdash; Team 12, Phase 3. My individual contribution is set out <a href="#contribution">further down the page</a>.</p>
+            <p style="font-size:.92rem;color:var(--muted);max-width:52ch">Team design project &mdash; Team 12, Phase 3. My individual contribution can be found <a href="#contribution">further down the page</a>.</p>
           </div>
           <figure class="fig fig--hero">
             <div class="fig-img">
@@ -76,7 +76,7 @@
             <figcaption>
               <span class="fig-no">Fig. 01</span>
               <span class="fig-title">Gearbox assembly</span>
-              <span class="fig-note">The design under analysis: input shaft on the left, output and shift mechanism on the right.</span>
+              <span class="fig-note">The design under analysis which consists of the input shaft on the left, as well as the output and shift mechanism on the right.</span>
             </figcaption>
           </figure>
         </div>
@@ -88,8 +88,8 @@
         <div class="grid grid-2" style="gap:clamp(32px,5vw,72px);align-items:start">
           <div class="reveal">
             <h2>The challenge</h2>
-            <p>The objective of this phase was to evaluate the gearbox shaft design under cyclic loading and confirm that each critical location maintained an acceptable fatigue safety factor.</p>
-            <p>The gearbox was assumed to run continuously for a five-year endurance race at a constant operating point, so every shaft feature had to survive high-cycle loading. Shaft length was capped at 60 mm by the gearbox width and shaft diameter was capped by the smallest pinion, which left very little room to solve a problem by simply adding material.</p>
+            <p>The objective of this phase was to evaluate the gearbox shaft design under cyclic loading, and confirm that each critical location continued to have an acceptable fatigue safety factor.</p>
+            <p>The gearbox was assumed to run continuously for a five-year endurance race at a constant operating point, so every shaft feature had to survive very high-cycle loading. The shaft length was capped at 60 mm by the gearbox width and the shaft diameter was capped by the smallest pinion.</p>
           </div>
           <div class="reveal">
             <div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))">
@@ -111,7 +111,6 @@
       <div class="wrap">
         <div class="section-head reveal">
           <h2>From loading to optimization</h2>
-          <p>The analysis chain &mdash; each step depends entirely on the one before it.</p>
         </div>
         <ol class="flow flow--dark reveal">
           <li>Loading</li><li>Stress</li><li>Fatigue</li><li>Safety</li><li>Optimization</li>
@@ -138,7 +137,7 @@
           <article class="card card--hover">
             <span class="card-index">03</span>
             <h3>Fatigue analysis</h3>
-            <p>Determine fatigue behaviour under cyclic loading using material properties and corrected endurance limits.</p>
+            <p>Determine fatigue behaviour under cyclic loading using material properties and the corrected endurance limits.</p>
           </article>
           <article class="card card--hover">
             <span class="card-index">04</span>
@@ -153,7 +152,7 @@
       <div class="wrap">
         <div class="section-head reveal">
           <h2>Working through the analysis</h2>
-          <p>A selected set of the drawings, diagrams and calculations behind the result &mdash; enough to follow the reasoning without reproducing the full report.</p>
+          <p>A selected set of the drawings, diagrams and calculations behind the final result.</p>
         </div>
 
         <div class="grid grid-2 reveal">
@@ -162,7 +161,6 @@
             <figcaption>
               <span class="fig-no">Fig. 02</span>
               <span class="fig-title">Gear train layout</span>
-              <span class="fig-note">A top-down view makes the two-stage gear train and the shift mechanism legible &mdash; the starting point for working out what each shaft carries.</span>
             </figcaption>
           </figure>
           <figure class="fig">
@@ -170,7 +168,6 @@
             <figcaption>
               <span class="fig-no">Fig. 03</span>
               <span class="fig-title">The three shafts</span>
-              <span class="fig-note">Each gear is located by a retaining groove and either a shoulder or a flange, and coupled with a single filleted keyway. Every one of those features is a stress riser.</span>
             </figcaption>
           </figure>
           <figure class="fig">
@@ -178,7 +175,6 @@
             <figcaption>
               <span class="fig-no">Fig. 04</span>
               <span class="fig-title">Force and torque calculation output</span>
-              <span class="fig-note">Gear mesh forces were computed with a static model in Python and plotted as vectors, which made it possible to re-run the whole load case whenever a gear diameter changed.</span>
             </figcaption>
           </figure>
           <figure class="fig">
@@ -186,7 +182,6 @@
             <figcaption>
               <span class="fig-no">Fig. 05</span>
               <span class="fig-title">Intermediate shaft dimensions</span>
-              <span class="fig-note">The most constrained shaft: three gear sets in 60 mm, including a step down to 8 mm and a smaller 1.7 mm keyway for the smallest pinion.</span>
             </figcaption>
           </figure>
         </div>
@@ -196,7 +191,7 @@
           <figcaption>
             <span class="fig-no">Fig. 06</span>
             <span class="fig-title">Critical features, colour-coded</span>
-            <span class="fig-note">Keyways (blue), retaining ring grooves (red), flanges (green) and shoulders (orange). Marking the shaft up this way turned it into a finite checklist of locations to verify &mdash; nineteen across the three shafts.</span>
+            <span class="fig-note">Keyways (blue), retaining ring grooves (red), flanges (green) and shoulders (orange).</span>
           </figcaption>
         </figure>
 
@@ -206,7 +201,6 @@
             <figcaption>
               <span class="fig-no">Fig. 07</span>
               <span class="fig-title">Intermediate shaft &mdash; z-x plane</span>
-              <span class="fig-note">Free body, shear force, bending moment and torque diagrams. These give the moment and torque at every critical location.</span>
             </figcaption>
           </figure>
           <figure class="fig">
@@ -214,7 +208,6 @@
             <figcaption>
               <span class="fig-no">Fig. 08</span>
               <span class="fig-title">Intermediate shaft &mdash; y-x plane</span>
-              <span class="fig-note">Because the gears have a 20&deg; pressure angle, both planes matter; the two bending moments combine into the resultant amplitude moment used in the safety factor.</span>
             </figcaption>
           </figure>
         </div>
@@ -224,14 +217,8 @@
           <figcaption>
             <span class="fig-no">Fig. 09</span>
             <span class="fig-title">Stress concentration factors, feature by feature</span>
-            <span class="fig-note">Notch sensitivity and geometry ratios worked through for each feature type to get a fatigue stress concentration factor: 1.50 at the flange, 1.41 at the shoulder, 1.64 / 1.56 / 1.66 at the three retaining ring grooves, and 1.30 at the keyways.</span>
           </figcaption>
         </figure>
-
-        <div class="btn-row reveal" style="margin-top:28px">
-          <span class="btn btn-secondary" aria-disabled="true">View full report / supporting documentation</span>
-        </div>
-        <p class="note reveal" style="margin-top:14px;display:inline-block">Link placeholder &mdash; add a PDF of the report or a shared link in <code>mech323.html</code> if you want to make the supporting documentation available. <span class="placeholder">[INSERT REPORT LINK]</span></p>
       </div>
     </section>
 
@@ -282,7 +269,7 @@
           </div>
 
           <h3 style="font-size:1.15rem">Intermediate shaft &mdash; all critical points</h3>
-          <p style="font-size:.95rem">The governing shaft, shown in full as a representative example of the calculation set. Midrange torque and resultant amplitude moment feed the DE-Gerber criterion at each location.</p>
+          <p style="font-size:.95rem">The governing shaft, which was shown as an example in the calculation set. The midrange torque and resultant amplitude moment were used to evaluate each location using the DE-Gerber criterion.</p>
           <div class="table-wrap">
             <table class="data">
               <thead>
@@ -315,7 +302,7 @@
         <div class="callout callout--dark reveal">
           <h3>Engineering insight</h3>
           <p style="font-size:clamp(1.02rem,1.7vw,1.18rem);color:#dbe5ee;max-width:64ch">The analysis did more than confirm that the design was safe. It identified an opportunity to reduce unnecessary material and improve efficiency without sacrificing durability.</p>
-          <p style="margin-top:14px">Safety factors on the input shaft ran from 8.06 to 13.63 &mdash; far above what the loading requires. That points directly at where the next design revision should remove material, while the intermediate shaft at 1.403 is the one location that has to be left alone.</p>
+          <p style="margin-top:14px">Safety factors on the input shaft ran from 8.06 to 13.63, which were far above what the loading requires. That points directly at where the next design revision should remove material, while the intermediate shaft at 1.403 is the one location that has to be left alone.</p>
         </div>
       </div>
     </section>
@@ -327,8 +314,7 @@
             <p class="c-label">My contribution</p>
             <div>
               <p>I was primarily responsible for the engineering calculations and analytical work throughout the project. This included developing and incorporating the required equations, calculating design values, and creating the tables used to present the results.</p>
-              <p>I also contributed to the development and refinement of the CAD design by reviewing the models and providing feedback and design suggestions to the team member responsible for the CAD work. Working collaboratively, we evaluated design changes to improve the overall functionality and presentation of the gearbox.</p>
-              <p style="margin-bottom:0"><strong>I was not the primary CAD designer on this project.</strong></p>
+              <p>I also contributed to the development and refinement of the CAD design by reviewing the models and providing feedback and design suggestions to the team member who was responsible for the CAD work. Working together, we evaluated design changes to improve the overall functionality and presentation of the gearbox.</p>
             </div>
           </div>
         </div>
